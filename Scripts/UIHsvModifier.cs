@@ -128,8 +128,7 @@ namespace Coffee.UIEffects
         public override void ModifyMaterial(Material newMaterial, Graphic graphic)
         {
             var connector = GraphicConnector.FindConnector(graphic);
-
-            newMaterial.shader = Shader.Find(string.Format("Hidden/{0} (UIHsvModifier)", newMaterial.shader.name));
+            SetNewMaterialShader(newMaterial, "UIHsvModifier");
             paramTex.RegisterMaterial(newMaterial);
         }
 

@@ -1,3 +1,35 @@
+# What I Do After Fork
+
+Test on Unity6 URP pipeline. just work well(I don't know why built-in pipeline code also work in urp pipeline)
+
+- Add Folder "Resources/SRP"
+
+- Add `SetNewMaterialShader` function in `BaseMaterialEffect.cs`
+
+  ```c#
+  /// <summary>
+  /// Set New Material Shader. Based on the current pipeline.
+  /// </summary>
+  /// <param name="newMaterial"></param>
+  /// <param name="baseName"></param>
+  
+  protected void SetNewMaterialShader(Material newMaterial, string baseName)
+  {
+      //Built-in renderer pipeline
+      if (GraphicsSettings.defaultRenderPipeline == null)
+      {
+          newMaterial.shader = Shader.Find($"Hidden/{newMaterial.shader.name} ({baseName})");
+      }
+      //SRP renderer pipeline
+      else
+      {
+          newMaterial.shader = Shader.Find($"Hidden/SRP_{newMaterial.shader.name} ({baseName})");
+      }
+  }
+  ```
+
+- All the code `newMaterial.shader = ...` replaced by `SetNewMaterialShader` function we just add.
+
 UIEffect
 ===
 

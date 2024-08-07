@@ -193,8 +193,8 @@ namespace Coffee.UIEffects
         public override void ModifyMaterial(Material newMaterial, Graphic graphic)
         {
             var connector = GraphicConnector.FindConnector(graphic);
-
-            newMaterial.shader = Shader.Find(string.Format("Hidden/{0} (UIEffect)", newMaterial.shader.name));
+            
+            SetNewMaterialShader(newMaterial, "UIEffect");
             SetShaderVariants(newMaterial, m_EffectMode, m_ColorMode, m_BlurMode,
                 m_AdvancedBlur ? BlurEx.Ex : BlurEx.None);
 

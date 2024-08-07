@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace Coffee.UIEffects
@@ -82,6 +83,25 @@ namespace Coffee.UIEffects
         {
             if (isActiveAndEnabled && paramTex != null)
                 paramTex.RegisterMaterial(newMaterial);
+        }
+        /// <summary>
+        /// Set New Material Shader. Based on the current pipeline.
+        /// </summary>
+        /// <param name="newMaterial"></param>
+        /// <param name="baseName"></param>
+
+        protected void SetNewMaterialShader(Material newMaterial, string baseName)
+        {
+            //Built-in renderer pipeline
+            if (GraphicsSettings.defaultRenderPipeline == null)
+            {
+                newMaterial.shader = Shader.Find($"Hidden/{newMaterial.shader.name} ({baseName})");
+            }
+            //SRP renderer pipeline
+            else
+            {
+                newMaterial.shader = Shader.Find($"Hidden/SRP_{newMaterial.shader.name} ({baseName})");
+            }
         }
 
         protected void SetShaderVariants(Material newMaterial, params object[] variants)
